@@ -1,2 +1,2 @@
-# whatsapp-contacts
-A Chrome plugin for exporting whatapp contact details from groups and chats
+# WhatsApp Contact Extractor
+A Chrome plugin to help easily extract contacts (that are not in your address book) from whatsapp groups and chats just by clicking a button and pasting the extracted values to any text editor or spreadsheet (the values are formatted as TSV)
