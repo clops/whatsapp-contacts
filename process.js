@@ -81,3 +81,5 @@ getNumbersFromChatHistory();
 packitForCSV();
 
 console.table(extract);
+
+alert('Extracted a total of '+extract.length+' numbers, paste them to any document or spreadsheet!');
