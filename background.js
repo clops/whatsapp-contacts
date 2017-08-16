@@ -7,7 +7,7 @@ chrome.browserAction.onClicked.addListener(function (tab) { //Fired when User Cl
 			console.log("Script Executed .. "); // Notification on Completion
 		});
 	} else {
-		console.log(' Nah, page not supported, I work with web.whatsapp.com only! ');
+		alert('Nah, page not supported, I work with web.whatsapp.com only!');
 	}
 
 });
