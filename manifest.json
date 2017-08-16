@@ -1,8 +1,8 @@
 {
-  "name": "WhatApp Contact Extractor",
+  "name": "WhatsApp Contact Extractor",
   "version": "1",
   "manifest_version": 2,
-  "description": "Easily extract contacts (that are not in your address book) from groups and chats",
+  "description": "Easily extract contacts (that are not in your address book) from groups and chats just by clicking a button and pasting the extracted values to any text editor or spreadsheet (the values are formatted as TSV)",
   "background": {
 	"scripts": ["background.js"]
   },

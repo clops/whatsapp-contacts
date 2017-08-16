@@ -1,5 +1,11 @@
 var extract = [];
 
+/**
+ * Utility/Helper function
+ *
+ * @param name
+ * @returns {*}
+ */
 function sanitizeName(name){
 	if (name) {
 		name = name.replace(/<\!--.*?-->/g, "");
@@ -14,6 +20,9 @@ function sanitizeName(name){
 }
 
 
+/**
+ * Method analyzes group information and reads the numbers from it
+ */
 function getNumbersFromGroupInfo() {
 	var counter = 0;
 	$('.group-info-form .chat-title span').each(function (e) {
@@ -41,6 +50,9 @@ function getNumbersFromGroupInfo() {
 }
 
 
+/**
+ * Method analyzes chat history and reads the numbers from it
+ */
 function getNumbersFromChatHistory() {
 	var counter = 0;
 	$('div.message-list span.author-body').each(function (e) {
@@ -63,6 +75,14 @@ function getNumbersFromChatHistory() {
 }
 
 
+/**
+ * Method to pack data into a CSV/TSV file
+ * I had to do it this way, as I cannot otherwise access the clipboard from code:
+ * 1. create a dummy field
+ * 2. put data into it
+ * 3. copy the data from it
+ * 4. remove the field
+ */
 function packitForCSV() {
 	var csv = '';
 
@@ -79,10 +99,18 @@ function packitForCSV() {
 	input.remove();
 }
 
-getNumbersFromGroupInfo();
-getNumbersFromChatHistory();
-packitForCSV();
+//RUN!
+try {
+	//so, call them all one by one
+	getNumbersFromGroupInfo();
+	getNumbersFromChatHistory();
+	packitForCSV();
 
-console.table(extract);
+	//also output data to the console for convenience
+	console.table(extract);
 
-alert('Extracted a total of '+Object.keys(extract).length+' unique numbers, paste them to any document or spreadsheet!');
+	//and render an alert to infor the user the operation has completed
+	alert('Extracted a total of ' + Object.keys(extract).length + ' unique numbers, paste them to any document or spreadsheet!');
+} catch(err) {
+	alert('Something went wrong and nothing worked. Error message: '+err.message);
+}
