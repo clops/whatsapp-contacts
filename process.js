@@ -13,6 +13,7 @@ function sanitizeName(name){
 	return name;
 }
 
+
 function getNumbersFromGroupInfo() {
 	var counter = 0;
 	$('.group-info-form .chat-title span').each(function (e) {
@@ -36,8 +37,9 @@ function getNumbersFromGroupInfo() {
 		counter++;
 	});
 
-	console.log('Extracted '+counter+' entries from Group Info');
+	console.log('Extracted '+counter+' non-unique entries from Group Info');
 }
+
 
 function getNumbersFromChatHistory() {
 	var counter = 0;
@@ -57,8 +59,9 @@ function getNumbersFromChatHistory() {
 		counter++;
 	});
 
-	console.log('Extracted '+counter+' entries from Chat History');
+	console.log('Extracted '+counter+' non-unique entries from Chat History');
 }
+
 
 function packitForCSV() {
 	var csv = '';
@@ -82,4 +85,4 @@ packitForCSV();
 
 console.table(extract);
 
-alert('Extracted a total of '+extract.length+' numbers, paste them to any document or spreadsheet!');
+alert('Extracted a total of '+Object.keys(extract).length+' unique numbers, paste them to any document or spreadsheet!');
