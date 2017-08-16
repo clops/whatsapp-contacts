@@ -12,7 +12,6 @@ function sanitizeName(name){
 		if (name.charAt(0) == '<') {
 			name = 'n/a';
 		}
-		//console.log(name);
 	} else {
 		name = 'n/a';
 	}
@@ -40,8 +39,6 @@ function getNumbersFromGroupInfo() {
 
 		var row = [number, name];
 		extract[number] = row;
-		//extract.push(row);
-		//csv += '"' + number + '","' + name + "\"\n";
 
 		counter++;
 	});
@@ -66,7 +63,6 @@ function getNumbersFromChatHistory() {
 
 		var row = [number, name];
 		extract[number] = row;
-		//csv += '"' + number + '","' + name + "\"\n";
 
 		counter++;
 	});
