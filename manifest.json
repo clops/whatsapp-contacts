@@ -1,0 +1,19 @@
+{
+  "name": "WhatApp Contact Extractor",
+  "version": "1",
+  "manifest_version": 2,
+  "description": "Easily extract contacts (that are not in your address book) from groups and chats",
+  "background": {
+	"scripts": ["background.js"]
+  },
+  "browser_action": {
+	"icons": ["icon.png"],
+	"default_title": "Extract them, NOW!",
+	"default_icon": "icon.png"
+  },
+  "permissions": ["activeTab","clipboardWrite","clipboardRead"],
+  "content_scripts": [ {
+	"js": [ "jquery.min.js" ],
+	"matches": [ "http://*/*", "https://*/*"]
+  }]
+}
