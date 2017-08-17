@@ -36,7 +36,7 @@ function sanitizeNumber(number){
 	number = number.replace(/-/g, '');
 	number = number.replace(/\(/g, '');
 	number = number.replace(/\)/g, '');
-	number = number.replace(/\+/g, '00');
+	//number = number.replace(/\+/g, '00');
 	return number;
 }
 
