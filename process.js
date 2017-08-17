@@ -8,14 +8,36 @@ var extract = [];
  */
 function sanitizeName(name){
 	if (name) {
+		//strip comments
 		name = name.replace(/<\!--.*?-->/g, "");
+
+		//hey, I am an image? Groce!
 		if (name.charAt(0) == '<') {
 			name = 'n/a';
 		}
+
+		//hey, I have an image in me? Cut it out, I don't want to see it
+		name = name.replace(/<\/?[^>]+(>|$)/g, "");
 	} else {
 		name = 'n/a';
 	}
+
 	return name;
+}
+
+/**
+ * Utility/Helper function
+ *
+ * @param number
+ * @returns {string|XML|*}
+ */
+function sanitizeNumber(number){
+	number = number.replace(/ /g, '');
+	number = number.replace(/-/g, '');
+	number = number.replace(/\(/g, '');
+	number = number.replace(/\)/g, '');
+	number = number.replace(/\+/g, '00');
+	return number;
 }
 
 
@@ -35,7 +57,9 @@ function getNumbersFromGroupInfo() {
 		//figure out name (if any)
 		var body = $(this).parents('.chat-body');
 		var name = $(body).find('.chat-meta .screen-name-text').html();
+
 		name     = sanitizeName(name);
+		number   = sanitizeNumber(number);
 
 		var row = [number, name];
 		extract[number] = row;
@@ -60,6 +84,7 @@ function getNumbersFromChatHistory() {
 
 		var name   = $(this).find('.author-screen-name').html();
 		name       = sanitizeName(name);
+		number     = sanitizeNumber(number);
 
 		var row = [number, name];
 		extract[number] = row;
@@ -68,6 +93,28 @@ function getNumbersFromChatHistory() {
 	});
 
 	console.log('Extracted '+counter+' non-unique entries from Chat History');
+}
+
+
+function getNumbersFromSystemMessages() {
+	var counter = 0;
+	$('div.message-list div.msg-system span.text-clickable').each(function (e) {
+		var number = $(this).html();
+		number = number.replace(/<\!--.*?-->/g, "");
+
+		if(!number || number.charAt(0) != '+'){
+			return true;
+		}
+
+		number     = sanitizeNumber(number);
+
+		var row = [number, 'n/a'];
+		extract[number] = row;
+
+		counter++;
+	});
+
+	console.log('Extracted '+counter+' non-unique entries from System Messages');
 }
 
 
@@ -83,7 +130,7 @@ function packitForCSV() {
 	var csv = '';
 
 	for(var k in extract){
-		csv += '"' + extract[k][0] + '"\t"' + extract[k][1] + "\"\n";
+		csv += '" ' + extract[k][0] + ' "\t"' + extract[k][1] + "\"\n";
 	}
 
 	var input = document.createElement('textarea');
@@ -100,6 +147,7 @@ try {
 	//so, call them all one by one
 	getNumbersFromGroupInfo();
 	getNumbersFromChatHistory();
+	getNumbersFromSystemMessages();
 	packitForCSV();
 
 	//also output data to the console for convenience
